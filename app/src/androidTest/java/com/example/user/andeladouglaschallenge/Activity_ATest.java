@@ -17,6 +17,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 
+
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class Activity_ATest {
@@ -26,7 +27,7 @@ public class Activity_ATest {
             new ActivityTestRule(Activity_A.class);
 
 
-
+//click button 1 then test webview scroll and back navigation
 
     @Test
 public void clickButton1(){
@@ -45,6 +46,8 @@ public void clickButton1(){
         }catch (InterruptedException f){}
 
     }
+
+ //click button 2 then test scroll on the activity transited to and navigate back
 
 @Test
 public void clickButton2(){

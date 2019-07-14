@@ -1,18 +1,19 @@
 package com.example.user.andeladouglaschallenge;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+//test small chunks of code to ensure values are sent as we expect
 public class UserDetailsTest {
     final UserDetails usr = new UserDetails("Verify");
-@Ignore
+
     @Test
     public void testIfExists(){
         assertTrue(usr!=null);
     }
-    @Ignore
+
+
     @Test
     public void testContentCreationSuccess() {
         assertNotEquals(usr,new UserDetails("Verify"));
@@ -31,11 +32,5 @@ public class UserDetailsTest {
 
         usr.setName("Bolingo");
         assertNotEquals(usr.getName(),new UserDetails("Verify").getName());
-    }
-
-
-    @Ignore
-    @Test
-    public void writeToParcel() {
     }
 }

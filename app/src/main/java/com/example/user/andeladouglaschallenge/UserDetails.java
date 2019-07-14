@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class UserDetails implements Parcelable {
+
+    //use creator class to write a new parcel or a set
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public UserDetails createFromParcel(Parcel in) {
             return new UserDetails(in);
@@ -13,14 +15,14 @@ public class UserDetails implements Parcelable {
             return new UserDetails[size];
         }
     };
-
+//variables well store in a parcel
     private String name;
     private String track;
     private  String email;
     private  String phone_number;
     private String country;
 
-    // Constructor
+    // Parcel constructor
     public UserDetails(String name, String track, String email,String phone_number,String country){
         this.name = name;
         this.track = track;
@@ -28,6 +30,7 @@ public class UserDetails implements Parcelable {
         this.phone_number=phone_number;
         this.country=country;
     }
+    //easy to use constructor for testing
     public UserDetails(String testData){
         this.name = testData;
         this.track = testData;
@@ -37,6 +40,7 @@ public class UserDetails implements Parcelable {
     }
 
 
+    //getters and setters for the variables
     public String getName() {
         return name;
     }
@@ -77,7 +81,7 @@ public class UserDetails implements Parcelable {
         this.country = country;
     }
 
-    // Parcelling part
+    // Parcel the variables
     public UserDetails(Parcel in){
         this.name = in.readString();
         this.track =  in.readString();
