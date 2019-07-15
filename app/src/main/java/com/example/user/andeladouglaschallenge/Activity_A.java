@@ -45,7 +45,7 @@ public class Activity_A extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(getApplicationContext(), Activity_B.class);
-            getApplication().startActivity(intent);
+            startActivity(intent);
         }
     }
 
@@ -56,7 +56,7 @@ public class Activity_A extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), Activity_C.class);
             intent.putExtra(PARCEL, new UserDetails(NAME, TRACK, EMAIL, PHONE_NUMBER,
                     COUNTRY));
-            getApplication().startActivity(intent);
+            startActivity(intent);
         }
     }
 }

@@ -3,4 +3,5 @@
     <color name="colorPrimary">#A6A2A2</color>
     <color name="colorPrimaryDark">#a6a2a2</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="ssl_warning_color">#9dfa32</color>
 </resources>

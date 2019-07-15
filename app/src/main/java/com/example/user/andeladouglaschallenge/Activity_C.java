@@ -36,12 +36,14 @@ public class Activity_C extends AppCompatActivity {
 //save the parcel during configuration changes so its not recrerated
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
+
         savedInstanceState.putParcelable(PARCEL,user);
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
+
         user=savedInstanceState.getParcelable(PARCEL);
+        super.onSaveInstanceState(savedInstanceState);
     }}

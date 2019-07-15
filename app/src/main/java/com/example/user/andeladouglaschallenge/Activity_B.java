@@ -1,9 +1,12 @@
 package com.example.user.andeladouglaschallenge;
 
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.http.SslError;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
+
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.webkit.SslErrorHandler;
@@ -11,6 +14,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
+import es.dmoral.toasty.Toasty;
 
 
 public class Activity_B extends AppCompatActivity {
@@ -58,10 +62,10 @@ public class Activity_B extends AppCompatActivity {
 
 
         if (!isNetworkAvailable()) {
-            //load cahe if no network is available
+            //load cache if no network is available
             browser.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ONLY);
         } else {
-            //otherise load webpage corresponding to url with the defined settings
+            //otherwise load webpage corresponding to url with the defined settings
             browser.loadUrl(ANDELA_URL);
 
         }}
@@ -86,7 +90,6 @@ public class Activity_B extends AppCompatActivity {
 
  //our webview's webclient
     private class WebViewStickler extends WebViewClient {
-        private static final String SSL_ERROR = "This website has an unverified certificate";
         private static final String ANDELA_HOMEPAGE = "andela.com/alc/";
 //allow use of navigation of webpage instead of app
         @Override
@@ -108,12 +111,30 @@ public class Activity_B extends AppCompatActivity {
             super.onPageFinished(view, url);
         }
 
-     //handle errors resulting from unsuccessfull handshake from SSL certificate and display waring to user
+     //handle errors resulting from unsuccessful handshake from SSL certificate and display waring to user
         @Override
-        public void onReceivedSslError(WebView view, final SslErrorHandler handler, SslError error) {
-
-            Toast.makeText(getApplicationContext(), SSL_ERROR, Toast.LENGTH_LONG).show();
-            handler.proceed();
+        public void onReceivedSslError(WebView browser, final SslErrorHandler sslErrorHandler, SslError sslError) {
+           //after checking the certificate in raw folder, create an appropriate Toast message in case it does
+           //not fulfill any of the requirements of the ssl layer
+            String message = "SSL error";
+            switch (sslError.getPrimaryError()) {
+                case SslError.SSL_UNTRUSTED:
+                    message ="Untrusted issuing authority for this website's certificate.";
+                    break;
+                case SslError.SSL_EXPIRED:
+                    message = "This website's certificate has expired.";
+                    break;
+                case SslError.SSL_IDMISMATCH:
+                    message = "There is a mismatch with the certificate details and hostname";
+                    break;
+                case SslError.SSL_NOTYETVALID:
+                    message = "This website uses an unvalidated certificate";
+                    break;
+            }
+            Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.andika);
+            Toasty.Config.getInstance().setTextSize(24).setToastTypeface(typeface).tintIcon(true).apply();
+            Toasty.warning(getApplicationContext(),message,Toast.LENGTH_LONG,true).show();
+            sslErrorHandler.proceed();
         }
 
 
