@@ -10,7 +10,7 @@ public class UserDetailsTest {
 
     @Test
     public void testIfExists(){
-        assertTrue(usr!=null);
+        assertNotNull(usr);
     }
 
 

@@ -1,5 +1,7 @@
 package com.example.user.andeladouglaschallenge;
 ;
+import android.util.Log;
+
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
@@ -22,9 +24,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 @LargeTest
 public class Activity_ATest {
 
-    @Rule
-    public ActivityTestRule<Activity_A> activityRule =
-            new ActivityTestRule(Activity_A.class);
 
 
 //click button 1 then test webview scroll and back navigation
@@ -34,7 +33,8 @@ public void clickButton1(){
         onView(withId(R.id.alc_info)).perform(click());
 
         try{
-        Thread.sleep(5000);}catch (InterruptedException f){}
+        Thread.sleep(9000);}catch (InterruptedException f){
+            Log.e("Sleep","Sleep Interrupted");}
 
         onView(withId(R.id.webview)).perform(swipeUp());
         onView(withId(R.id.webview)).perform(swipeDown());
@@ -43,7 +43,7 @@ public void clickButton1(){
         try{
             Thread.sleep(2000);
             onView(withId(R.id.idCardView)).perform(swipeUp());
-        }catch (InterruptedException f){}
+        }catch (InterruptedException f){Log.e("Sleep","Sleep Interrupted");}
 
     }
 
@@ -55,27 +55,28 @@ public void clickButton2(){
     try{
         Thread.sleep(1000);
         onView(withId(R.id.idCardView)).perform(swipeUp());
-    }catch (InterruptedException f){}
+    }catch (InterruptedException f){Log.e("Sleep","Sleep Interrupted");}
     try{
         Thread.sleep(1000);
         onView(withId(R.id.idCardView)).perform(swipeUp());
-    }catch (InterruptedException f){}
+    }catch (InterruptedException f){Log.e("Sleep","Sleep Interrupted");}
     try{
         Thread.sleep(2000);
         onView(withId(R.id.idCardView)).perform(swipeUp());
+    }catch (InterruptedException f){Log.e("Sleep","Sleep Interrupted");}
+    try{
+        Thread.sleep(1000);
+        onView
+                (withId(R.id.idCardView)).perform(swipeDown());
     }catch (InterruptedException f){}
     try{
         Thread.sleep(1000);
         onView(withId(R.id.idCardView)).perform(swipeDown());
-    }catch (InterruptedException f){}
+    }catch (InterruptedException f){Log.e("Sleep","Sleep Interrupted");}
     try{
         Thread.sleep(1000);
         onView(withId(R.id.idCardView)).perform(swipeDown());
-    }catch (InterruptedException f){}
-    try{
-        Thread.sleep(1000);
-        onView(withId(R.id.idCardView)).perform(swipeDown());
-    }catch (InterruptedException f){}
+    }catch (InterruptedException f){Log.e("Sleep","Sleep Interrupted");}
 
 
         onView(withId(R.id.name_val)).check(matches(withText(Activity_A.NAME)));
@@ -88,7 +89,7 @@ public void clickButton2(){
     try{
         Thread.sleep(2000);
         onView(withId(R.id.idCardView)).perform(swipeUp());
-    }catch (InterruptedException f){}
+    }catch (InterruptedException f){Log.e("Sleep","Sleep Interrupted");}
 
     }
 

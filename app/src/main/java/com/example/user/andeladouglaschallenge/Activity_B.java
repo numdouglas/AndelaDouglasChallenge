@@ -1,5 +1,6 @@
 package com.example.user.andeladouglaschallenge;
 
+import android.annotation.SuppressLint;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -8,16 +9,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 import es.dmoral.toasty.Toasty;
+import android.view.View.OnClickListener;
 
-
-public class Activity_B extends AppCompatActivity {
+//suppress warnings for possible XSS vulnerabilities on enabling javascript in webview
+@SuppressLint("SetJavaScriptEnabled")
+public class Activity_B extends AppCompatActivity implements OnClickListener {
     //store the url of website of interest in constant field
     private static final String ANDELA_URL = "https://andela.com/alc/";
 
@@ -54,6 +56,7 @@ public class Activity_B extends AppCompatActivity {
         browser.getSettings().setAllowFileAccess(true);
         browser.getSettings().setAppCacheEnabled(true);
 
+
 //placeholder while webpage loads
         browser.setBackgroundColor(0);
         browser.setBackgroundResource(R.drawable.gourd);
@@ -88,15 +91,19 @@ public class Activity_B extends AppCompatActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
- //our webview's webclient
+    @Override
+    public void onClick(View view) {
+
+    }
+
+    //our webview's webclient
     private class WebViewStickler extends WebViewClient {
         private static final String ANDELA_HOMEPAGE = "andela.com/alc/";
 //allow use of navigation of webpage instead of app
         @Override
         public boolean shouldOverrideUrlLoading(WebView webView, String url) {
             webView.loadUrl(url);
-            if (url.indexOf(ANDELA_HOMEPAGE) > -1) return false;
-            return true;
+            return url.indexOf(ANDELA_HOMEPAGE) <= -1;
         }
 
         @Override
@@ -110,6 +117,11 @@ public class Activity_B extends AppCompatActivity {
 
             super.onPageFinished(view, url);
         }
+
+
+
+
+
 
      //handle errors resulting from unsuccessful handshake from SSL certificate and display waring to user
         @Override
@@ -133,7 +145,7 @@ public class Activity_B extends AppCompatActivity {
             }
             Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.andika);
             Toasty.Config.getInstance().setTextSize(24).setToastTypeface(typeface).tintIcon(true).apply();
-            Toasty.warning(getApplicationContext(),message,Toast.LENGTH_LONG,true).show();
+            Toasty.warning(getApplicationContext(),message,5000,true).show();
             sslErrorHandler.proceed();
         }
 
@@ -142,12 +154,11 @@ public class Activity_B extends AppCompatActivity {
 
     //allow use of back button to navigate webpage instead of app
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && browser.canGoBack()) {
+    public void onBackPressed() {
+        if (browser.isFocused() && browser.canGoBack()) {
             browser.goBack();
-            return true;
+        } else {
+            super.onBackPressed();
         }
-
-        return super.onKeyDown(keyCode, event);
     }
 }

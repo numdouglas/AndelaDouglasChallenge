@@ -10,7 +10,7 @@ import android.widget.Button;
 //This activity will host the home dashboard
 public class Activity_A extends AppCompatActivity {
 //constants in this case store my details
-    public static final String NAME = "Douglas Mbogo";
+    public static final String NAME = "Douglas Mbogo Ntongai";
     public static final String TRACK = "Android";
     public static final String EMAIL = "salitosmbogz@gmail.com";
     public static final String PHONE_NUMBER = "+254741287087";
